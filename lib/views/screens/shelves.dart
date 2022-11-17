@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/drawer_widget.dart';
+import '../widgets/drawer/drawer_widget.dart';
 
 class Shelves extends StatelessWidget {
   const Shelves({super.key});

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_library/views/widgets/drawer_widget.dart';
+import 'package:my_library/views/widgets/drawer/drawer_widget.dart';
+
+import '../widgets/list_book_widget.dart';
 
 class Authors extends StatelessWidget {
   const Authors({super.key});
@@ -10,8 +12,9 @@ class Authors extends StatelessWidget {
       drawer: MyDrawer(),
       appBar: AppBar(
         title: const Text('Authors'),
-        backgroundColor: Color.fromARGB(255, 243, 16, 0),
+        backgroundColor: const Color.fromARGB(255, 243, 16, 0),
       ),
+      body: ListBook(icon: Icons.face, value: 'Mahmoud'),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/drawer_widget.dart';
+import '../widgets/drawer/drawer_widget.dart';
 
 class WishList extends StatelessWidget {
   const WishList({super.key});
