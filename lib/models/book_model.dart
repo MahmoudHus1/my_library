@@ -16,9 +16,9 @@ class BookModel {
   String shelf;
   double bookRate;
   String bookReadStatus;
-  bool isBorrowed;
-  String borrowedFrom;
-  int returnDate;
+  int isBorrowed;
+  String? borrowedFrom;
+  int? returnDate;
   BookModel(
      {this.bookId,
     required this.bookTitle,
@@ -33,8 +33,8 @@ class BookModel {
     required this.bookRate,
     required this.bookReadStatus,
     required this.isBorrowed,
-    required this.borrowedFrom,
-    required this.returnDate,
+     this.borrowedFrom,
+     this.returnDate,
   });
 
   Map<String, dynamic> toMap() {
@@ -70,7 +70,7 @@ class BookModel {
       shelf: map['shelf'] as String,
       bookRate: map['bookRate'] as double,
       bookReadStatus: map['bookReadStatus'] as String,
-      isBorrowed: map['isBorrowed'] as bool,
+      isBorrowed: map['isBorrowed'] as int,
       borrowedFrom: map['borrowedFrom'] as String,
       returnDate: map['returnDate'] as int,
     );

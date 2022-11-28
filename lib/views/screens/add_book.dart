@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:my_library/db/dbhelper.dart';
@@ -24,19 +25,23 @@ class AddNewBook extends StatefulWidget {
 }
 
 class _AddNewBookState extends State<AddNewBook> {
+  List<Widget> widgets = [];
   @override
   void initState() {
     super.initState();
+    widgets = [];
     initializeDateFormatting();
   }
 
   @override
   Widget build(BuildContext context) {
+    final NavigatorState navigatorState =  Navigator.of(context);
+    final NewBookProvider newBookProvider = Provider.of<NewBookProvider>(context, listen: false);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Provider.of<NewBookProvider>(context, listen: false).addBook();
-          Navigator.of(context).pop();
+        onPressed: ()async {
+        await  newBookProvider.addBook();
+         navigatorState.pop();
         },
         backgroundColor: const Color.fromARGB(255, 37, 189, 7),
         child: const Icon(Icons.check),
@@ -64,7 +69,7 @@ class _AddNewBookState extends State<AddNewBook> {
                         height: 15,
                       ),
                       TextField(
-                        controller: myProvider.authorController,
+                        controller: myProvider.controllers.first,
                         decoration: InputDecoration(
                           filled: true,
                           floatingLabelStyle:
@@ -77,17 +82,45 @@ class _AddNewBookState extends State<AddNewBook> {
                           labelText: 'Author',
                           hintText: 'Author',
                           suffixIcon: InkWell(
-                              onTap: () {}, child: const Icon(Icons.add)),
+                              onTap: () {
+                                TextEditingController controller =
+                                    TextEditingController();
+                                myProvider.controllers.add(controller);
+                                widgets.add(TextField(
+                                  controller: myProvider.controllers.last,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.red),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5)),
+                                    focusedBorder: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.red, width: 2)),
+                                    labelText: 'Author',
+                                    hintText: 'Author',
+                                    suffixIcon: InkWell(
+                                      onTap: () {
+                                        widgets.removeLast();
+                                        myProvider.controllers.removeLast();
+                                        setState(() {});
+                                      },
+                                      child: const Icon(Icons.delete),
+                                    ),
+                                  ),
+                                ));
+                                setState(() {});
+                              },
+                              child: const Icon(Icons.add)),
                         ),
                       ),
+                      ...widgets,
                     ],
                   )),
                   SizedBox(
                     width: 170,
                     height: 200,
-                    child: InkWell(
-                      child: Image.asset('assets/images/book-52.png'),
-                    ),
+                    child: Image.asset('assets/images/book-52.png'),
                   )
                 ],
               ),
@@ -145,7 +178,10 @@ class _AddNewBookState extends State<AddNewBook> {
                         onTap: () {
                           myProvider.isbnController.text += 'X';
                         },
-                        child:  Icon(Icons.close, color: Colors.black.withOpacity(.4),)),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.black.withOpacity(.4),
+                        )),
                     hintText: myProvider.isbnController.text,
                   )),
               const SizedBox(
@@ -167,12 +203,17 @@ class _AddNewBookState extends State<AddNewBook> {
               const SizedBox(
                 height: 15,
               ),
-              ShelfTextField(flag: true),
-              const SizedBox(
-                height: 15,
-              ),
               Row(
-                children: [ Expanded(child: Rating(initialRating: 0.0,)), const Progress(max: 10, divisions: 2,)],
+                children: [
+                  Expanded(
+                      child: Rating(
+                    initialRating: 0.0,
+                  )),
+                  const Progress(
+                    max: 10,
+                    divisions: 2,
+                  )
+                ],
               ),
               Row(
                 children: [

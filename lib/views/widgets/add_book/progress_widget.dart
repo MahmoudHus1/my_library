@@ -22,7 +22,7 @@ class Progress extends StatelessWidget {
         return Consumer<NewBookProvider>(
             builder: (context, myProvider, widget) {
           return AlertDialog(
-            title: const Text('Choose read status'),
+            title: divisions == 2 ? const Text('Choose read status') :  const Text('Choose number of pages'),
             content: SingleChildScrollView(
               child: Slider(
                 activeColor: Colors.red,

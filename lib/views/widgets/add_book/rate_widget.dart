@@ -28,7 +28,6 @@ class Rating extends StatelessWidget {
         ),
         onRatingUpdate: (rating) {
           myProvider.changeRating(rating);
-          print(rating);
         },
       );
     });

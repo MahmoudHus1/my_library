@@ -5,10 +5,9 @@ import 'package:my_library/providers/controller_provider.dart';
 import 'package:my_library/views/screens/titles.dart';
 import 'package:provider/provider.dart';
 
-
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DbHelper.dbHelper.connectToDatabase();
   runApp(const MyApp());
 }
 
@@ -33,7 +32,7 @@ class InitApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyBookLibrary',
-      home:  Titles(),
+      home: Titles(),
     );
   }
 }

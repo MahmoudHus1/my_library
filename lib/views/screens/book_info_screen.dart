@@ -7,7 +7,27 @@ import '../widgets/add_book/rate_widget.dart';
 import '../widgets/add_book/shelf_widget.dart';
 
 class BookInfo extends StatelessWidget {
-  BookInfo({super.key});
+  final String title;
+  final List authors;
+  final String genre;
+  final double rating;
+  final String year;
+  final String language;
+  final int pages;
+  final String description;
+  final String notes;
+
+  BookInfo(
+      {super.key,
+      required this.title,
+      required this.authors,
+      required this.genre,
+      required this.rating,
+      required this.year,
+      required this.language,
+      required this.pages,
+      required this.description,
+      required this.notes});
 
   final AssetImage bookCover = AssetImage('assets/images/books.jpeg');
 
@@ -56,27 +76,31 @@ class BookInfo extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Perfume',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  title,
+                  style: const TextStyle(
+                      fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text('Mahmoud',
-                    style:
-                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  'adventure',
-                  style: TextStyle(color: Colors.grey),
+                    (authors.toString())
+                        .replaceAll('[', '')
+                        .replaceAll(']', ''),
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.bold)),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  genre,
+                  style: const TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 Rating(
-                  initialRating: 3,
+                  initialRating: rating,
                 ),
                 const SizedBox(
                   height: 15,
@@ -85,14 +109,14 @@ class BookInfo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'Year',
                           style: TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                         Text(
-                          '2003',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          year,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
                     ),
@@ -100,14 +124,14 @@ class BookInfo extends StatelessWidget {
                       width: 60,
                     ),
                     Column(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'Language',
                           style: TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                         Text(
-                          '2003',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          language,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
                     ),
@@ -115,14 +139,14 @@ class BookInfo extends StatelessWidget {
                       width: 60,
                     ),
                     Column(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'Pages',
                           style: TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                         Text(
-                          '200',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          pages.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
                     )
@@ -136,9 +160,7 @@ class BookInfo extends StatelessWidget {
                   children: [
                     Expanded(
                         child: SizedBox(
-                      child: ShelfTextField(
-                        flag: false,
-                      ),
+                      child: ShelfTextField(),
                     )),
                     const SizedBox(
                       width: 15,
@@ -160,29 +182,29 @@ class BookInfo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Description :',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                Text('la bla bla bla'),
-                Divider(
+                Text(description),
+                const Divider(
                   thickness: 2,
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                Text(
+                const Text(
                   'Notes :',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                Text('la bla bla bla'),
-                Divider(
+                Text(notes),
+                const Divider(
                   thickness: 2,
                 )
               ],
